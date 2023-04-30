@@ -1,0 +1,11 @@
+.profile__photochanger {
+  width: 26px;
+  height: 26px;
+  opacity: 0;
+  transition: all .6s ease;
+  align-self: center;
+}
+
+.profile__avatar:hover .profile__photochanger {
+  opacity: 1;
+}

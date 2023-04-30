@@ -1,0 +1,7 @@
+.card__under-picture {
+  margin: 25px 15px 31px 21px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}

@@ -1,0 +1,17 @@
+.elements {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 880px;
+  margin: 50px auto 66px;
+  display: grid;
+  row-gap: 20px;
+  column-gap: 17px;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 282px));
+  justify-content: center;
+}
+
+@media screen and (max-width:680px){
+  .elements{
+    margin: 36px auto 48px;
+  }
+}
