@@ -38,7 +38,7 @@
       "last 1 safari version"
     ]
   },
-  "homepage": "https://nasdermn.github.io/mesto-react/",
+  "homepage": "https://nasdermn.github.io/react-mesto-auth/",
   "devDependencies": {
     "gh-pages": "^5.0.0"
   }
