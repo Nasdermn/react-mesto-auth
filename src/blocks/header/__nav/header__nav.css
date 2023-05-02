@@ -1,0 +1,13 @@
+.header__nav {
+  margin: 0;
+  display: flex;
+  flex-direction: row;
+  gap: 24px;
+}
+
+@media screen and (max-width:680px){
+  .header__nav{
+    flex-direction: column;
+    align-items: center;
+  }
+}

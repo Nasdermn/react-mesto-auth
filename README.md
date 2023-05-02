@@ -1,4 +1,4 @@
-# Project-Mesto - React version
+# Project-Mesto - react version with api, registration and authorization
 
 ## Обзор (Ru)
 
@@ -24,5 +24,11 @@
 
   The visual part of the project currently has 9 main elements - header, profile section, elements section, footer and 5 popup windows.
 
+## Все версии проекта (All versions of this project)
+1. [Mesto Classic](https://github.com/Nasdermn/mesto-classic)
+2. [Mesto OOP](https://github.com/Nasdermn/mesto)
+3. [Mesto React](https://github.com/Nasdermn/mesto-react)
+4. Mesto with registration and authorization
+
 ## Ссылка на GitHub Pages (GitHub Pages link):
-https://nasdermn.github.io/mesto-react
+https://nasdermn.github.io/react-mesto-auth

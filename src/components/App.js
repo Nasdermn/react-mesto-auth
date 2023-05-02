@@ -16,6 +16,7 @@ import AddPlacePopup from './AddPlacePopup';
 import Login from './Login';
 import Register from './Register';
 import InfoTooltip from './InfoTooltip';
+import authApi from '../utils/AuthApi';
 
 function App() {
   const [loggedIn, setLoggedIn ] = useState(false);
@@ -28,6 +29,7 @@ function App() {
   const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
   const [isInfoTooltipSuccess, setIsInfoTooltipSuccess] = useState(false);
   const [selectedCard, setSelectedCard] = useState({});
+  const [isHeaderMenuOpen, setIsHeaderMenuOpen] = useState(false);
   const isOpen = isEditAvatarPopupOpen || isEditProfilePopupOpen || isAddPlacePopupOpen || selectedCard;
   const navigate = useNavigate();
 
@@ -56,6 +58,10 @@ function App() {
     })
     .catch(err => console.log(err));
   }, []);
+
+  function handleToggleHeaderMenu() {
+    setIsHeaderMenuOpen(!isHeaderMenuOpen);
+  }
 
   function handleCardLike(card) {
     // Снова проверяем, есть ли уже лайк на этой карточке
@@ -100,15 +106,63 @@ function App() {
       .catch(err => console.log(err));
   }
 
-  function handleUserRegistration() {
-    setIsInfoTooltipSuccess(true);
-    setIsInfoTooltipOpen(true);
+  function handleUserRegistration(email, password) {
+    authApi.registerUser(email, password)
+      .then((res) => {
+        console.log(res);
+        if (res) {
+          setIsInfoTooltipSuccess(true);
+          setIsInfoTooltipOpen(true);
+          navigate('/signin');
+        }
+      })
+      .catch((error) => {
+        setIsInfoTooltipSuccess(false);
+        setIsInfoTooltipOpen(true);
+        console.log(error);
+    })
   }
 
   function handleUserAuthorization(email, password) {
-    setHeaderEmail(email);
-    setLoggedIn(true);
+    authApi.loginUser(email, password)
+      .then((res)=>{
+        if (res.token) {
+          localStorage.setItem('jwt', res.token);
+          setHeaderEmail(email);
+          setLoggedIn(true);
+          navigate('/');
+        }
+      })
+      .catch((err) => {
+        setIsInfoTooltipSuccess(false);
+        setIsInfoTooltipOpen(true);
+        console.log(err);
+      });
   }
+
+  function handleUserExit() {
+    localStorage.removeItem('jwt');
+    setHeaderEmail('');
+    setLoggedIn(false);
+    navigate('/signin');
+  }
+
+  useEffect(() => {
+    const jwt = localStorage.getItem('jwt');
+    if (jwt) {
+      authApi
+        .tokenCheck(jwt)
+          .then((res) => {
+            if (res) {
+              setLoggedIn(true);
+              navigate('/');
+              setHeaderEmail(res.data.email);
+            }
+          })
+          .catch((error) => console.log(error));
+    }
+  }, []);  
+
 
   function closeAllPopups() {
     setIsEditProfilePopupOpen(false)
@@ -124,6 +178,9 @@ function App() {
         <div className="page">
           <Header
             headerEmail={headerEmail}
+            onExit = {handleUserExit}
+            isMenuOpen={isHeaderMenuOpen}
+            onToggleMenu={handleToggleHeaderMenu}
           />
           <Routes>
           <Route path='/'
@@ -142,15 +199,12 @@ function App() {
 
             <Route path = '/signup'
               element = {<Register
-                navigate = {navigate}
                 onRegister={handleUserRegistration}
               />}
             />
            
            <Route path = '/signin'
               element = {<Login
-                navigate = {navigate}
-                setLoggedIn={setLoggedIn}
                 onLogin={handleUserAuthorization}
               />}
             />

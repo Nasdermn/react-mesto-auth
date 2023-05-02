@@ -5,8 +5,15 @@
   color: #FFF;
   transition: opacity 1s ease;
   text-decoration: none;
+  text-align: right;
 }
 
 .header__link:hover {
   opacity: .5;
+}
+
+@media screen and (max-width:680px){
+  .header__link {
+    text-align: center;
+  }
 }

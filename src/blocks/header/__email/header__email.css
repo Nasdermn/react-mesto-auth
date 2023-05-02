@@ -5,3 +5,9 @@
   color: #fff;
   margin: 0;
 }
+
+@media screen and (max-width:680px){
+  .header__email {
+    text-align: center;
+  }
+}

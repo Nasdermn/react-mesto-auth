@@ -1,14 +1,13 @@
 import {useState} from "react";
 import authApi from "../utils/AuthApi";
 
-function Login({navigate, setUserEmail, setLoggedIn, onLogin}) {
+function Login({navigate, onLogin}) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   function handleUserAuthorization(e) {
     e.preventDefault();
     onLogin(email, password);
-    navigate('/');
   }
 
   function handleEmailChange(evt) {

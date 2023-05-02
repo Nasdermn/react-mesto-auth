@@ -8,6 +8,12 @@
 @import url(./blocks/header/__link/header__link.css);
 @import url(./blocks/header/__link/_gray/header__link_gray.css);
 @import url(./blocks/header/__logo/header__logo.css);
+@import url(./blocks/header/__menu/header__menu.css);
+@import url(./blocks/header/__menu/_opened/header__menu_opened.css);
+@import url(./blocks/header/__nav/header__nav.css);
+@import url(./blocks/header/__burger-button/header__burger-button.css);
+@import url(./blocks/header/__close-button/header__close-button.css);
+@import url(./blocks/header/__wrapper/header__wrapper.css);
 @import url(./blocks/info-tooltip/info-tooltip.css);
 @import url(./blocks/info-tooltip/__container/info-tooltip__container.css);
 @import url(./blocks/info-tooltip/_opened/info-tooltip_opened.css);

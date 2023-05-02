@@ -28,7 +28,7 @@ class AuthApi {
       .then(this.handleResponse)
   }
 
-  checkToken(jwt) {
+  tokenCheck(jwt) {
     return fetch(`${this.url}/users/me`, {
       method: "GET",
       headers: {

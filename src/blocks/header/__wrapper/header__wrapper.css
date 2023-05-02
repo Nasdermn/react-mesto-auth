@@ -1,0 +1,12 @@
+.header__wrapper {
+  margin: 0;
+  display: flex;
+  flex-direction: row;
+  gap: 24px;
+}
+
+@media screen and (max-width: 681px) {
+  .header__wrapper{
+    display: none;
+  }
+}

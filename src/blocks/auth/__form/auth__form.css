@@ -4,3 +4,9 @@
   flex-direction: column;
   gap: 30px;
 }
+
+@media screen and (max-width:680px){
+  .auth__form {
+    margin-bottom: 20px;
+  }
+}
