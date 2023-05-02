@@ -1,9 +1,9 @@
-import {useState} from "react";
+import { useState } from "react";
 import authApi from "../utils/AuthApi";
 
-function Login({navigate, onLogin}) {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+function Login({ onLogin }) {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   function handleUserAuthorization(e) {
     e.preventDefault();
@@ -22,15 +22,29 @@ function Login({navigate, onLogin}) {
     <section className="auth">
       <h2 className="auth__title">Вход</h2>
       <form className="auth__form" onSubmit={handleUserAuthorization}>
-        <input className="auth__input" onChange={handleEmailChange} name="email" type="email" placeholder="Email" required></input>
+        <input
+          className="auth__input"
+          onChange={handleEmailChange}
+          name="email"
+          type="email"
+          placeholder="Email"
+          required = {true}
+        ></input>
         <span className="input-error email-input-error" />
-        <input className="auth__input" onChange={handlePasswordChange} name="password" type="password" placeholder="Пароль" required></input>
+        <input
+          className="auth__input"
+          onChange={handlePasswordChange}
+          name="password"
+          type="password"
+          placeholder="Пароль"
+          required = {true}
+        ></input>
         <span className="input-error password-input-error" />
         <button type="submit" className="auth__button">
           Войти
         </button>
       </form>
     </section>
-  )
+  );
 }
 export default Login;

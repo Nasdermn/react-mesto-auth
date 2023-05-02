@@ -2,19 +2,19 @@ import { useState, useEffect, useContext } from "react";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import PopupWithForm from "./PopupWithForm";
 
-function EditProfilePopup ({isOpen, onClose, onUpdateUser}) {
-  const [name, setName] = useState('');
-  const [description, setDescription] = useState('');
+function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
 
   // Подписка на контекст
-const currentUser = useContext(CurrentUserContext);
+  const currentUser = useContext(CurrentUserContext);
 
-// После загрузки текущего пользователя из API
-// его данные будут использованы в управляемых компонентах.
-useEffect(() => {
-  setName(currentUser.name);
-  setDescription(currentUser.about);
-}, [currentUser, isOpen]);
+  // После загрузки текущего пользователя из API
+  // его данные будут использованы в управляемых компонентах.
+  useEffect(() => {
+    setName(currentUser.name);
+    setDescription(currentUser.about);
+  }, [currentUser, isOpen]);
 
   function handleChangeName({ target }) {
     setName(target.value);
@@ -27,7 +27,7 @@ useEffect(() => {
   function handleSubmit(e) {
     // Запрещаем браузеру переходить по адресу формы
     e.preventDefault();
-  
+
     // Передаём значения управляемых компонентов во внешний обработчик
     onUpdateUser({
       name,
@@ -37,9 +37,9 @@ useEffect(() => {
 
   return (
     <PopupWithForm
-      title = "Редактировать профиль"
-      name = "edit"
-      isOpen = {isOpen}
+      title="Редактировать профиль"
+      name="edit"
+      isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleSubmit}
     >
@@ -51,9 +51,9 @@ useEffect(() => {
         placeholder="Имя"
         minLength={2}
         maxLength={40}
-        required=""
+        required={true}
         onChange={handleChangeName}
-        value={name || ''}
+        value={name || ""}
       />
       <span className="input-error name-input-error" />
       <input
@@ -64,13 +64,13 @@ useEffect(() => {
         placeholder="Описание"
         minLength={2}
         maxLength={200}
-        required=""
+        required={true}
         onChange={handleChangeDescription}
-        value={description || ''}
+        value={description || ""}
       />
       <span className="input-error description-input-error" />
     </PopupWithForm>
-  )
+  );
 }
 
 export default EditProfilePopup;
