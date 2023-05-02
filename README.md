@@ -11,7 +11,7 @@
 
 ## Review (Eng)
 
-  This project was created to train the skills of working with React. It is a logical continuation of the Place project, but adapted to React.
+  This project was created to train the skills of working with React. It is a logical continuation of the Place project, but now it has registration and authorization.
 
   The site is connected to the Yandex Practicum server and has its own token for authorization.
   A token was issued for each student of the 60th cohort, so if you decided to test this project on GitHub Pages with my token, then I ask you not to add materials of an unacceptable nature.
