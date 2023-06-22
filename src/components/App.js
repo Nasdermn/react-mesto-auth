@@ -1,24 +1,24 @@
-import { useEffect, useState } from "react";
-import { Navigate, useNavigate, Route, Routes } from "react-router-dom";
-import { CurrentUserContext } from "../contexts/CurrentUserContext";
-import ProtectedRouteElement from "./ProtectedRoute";
+import { useEffect, useState } from 'react';
+import { Navigate, useNavigate, Route, Routes } from 'react-router-dom';
+import { CurrentUserContext } from '../contexts/CurrentUserContext';
+import ProtectedRouteElement from './ProtectedRoute';
 
-import api from "../utils/Api";
-import Header from "./Header";
-import Main from "./Main";
-import Footer from "./Footer";
-import EditProfilePopup from "./EditProfilePopup";
-import EditAvatarPopup from "./EditAvatarPopup";
-import ImagePopup from "./ImagePopup";
-import AddPlacePopup from "./AddPlacePopup";
-import Login from "./Login";
-import Register from "./Register";
-import InfoTooltip from "./InfoTooltip";
-import authApi from "../utils/AuthApi";
+import api from '../utils/Api';
+import Header from './Header';
+import Main from './Main';
+import Footer from './Footer';
+import EditProfilePopup from './EditProfilePopup';
+import EditAvatarPopup from './EditAvatarPopup';
+import ImagePopup from './ImagePopup';
+import AddPlacePopup from './AddPlacePopup';
+import Login from './Login';
+import Register from './Register';
+import InfoTooltip from './InfoTooltip';
+import authApi from '../utils/AuthApi';
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
-  const [headerEmail, setHeaderEmail] = useState("example@gmail.com");
+  const [headerEmail, setHeaderEmail] = useState('example@gmail.com');
   const [currentUser, setCurrentUser] = useState({});
   const [cards, setCards] = useState([]);
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
@@ -29,22 +29,19 @@ function App() {
   const [selectedCard, setSelectedCard] = useState({});
   const [isHeaderMenuOpen, setIsHeaderMenuOpen] = useState(false);
   const isOpen =
-    isEditAvatarPopupOpen ||
-    isEditProfilePopupOpen ||
-    isAddPlacePopupOpen ||
-    selectedCard;
+    isEditAvatarPopupOpen || isEditProfilePopupOpen || isAddPlacePopupOpen || selectedCard;
   const navigate = useNavigate();
 
   useEffect(() => {
     function handleEscapeClose(evt) {
-      if (evt.key === "Escape") {
+      if (evt.key === 'Escape') {
         closeAllPopups();
       }
     }
     if (isOpen) {
-      document.addEventListener("keydown", handleEscapeClose);
+      document.addEventListener('keydown', handleEscapeClose);
       return () => {
-        document.removeEventListener("keydown", handleEscapeClose);
+        document.removeEventListener('keydown', handleEscapeClose);
       };
     }
   }, [isOpen]);
@@ -73,9 +70,7 @@ function App() {
     api
       .changeLikeCardStatus(card.id, !isLiked)
       .then((newCard) => {
-        setCards((state) =>
-          state.map((c) => (c._id === card.id ? newCard : c))
-        );
+        setCards((state) => state.map((c) => (c._id === card.id ? newCard : c)));
       })
       .catch((err) => console.log(err));
   }
@@ -84,7 +79,7 @@ function App() {
     api
       .deleteCard(card.id)
       .then((res) => {
-        setCards(cards.filter((element) => element._id != card.id));
+        setCards(cards.filter((element) => element._id !== card.id));
       })
       .catch((err) => console.log(err));
   }
@@ -127,7 +122,7 @@ function App() {
         if (res) {
           setIsInfoTooltipSuccess(true);
           setIsInfoTooltipOpen(true);
-          navigate("/signin");
+          navigate('/signin');
         }
       })
       .catch((error) => {
@@ -142,10 +137,10 @@ function App() {
       .loginUser(email, password)
       .then((res) => {
         if (res.token) {
-          localStorage.setItem("jwt", res.token);
+          localStorage.setItem('jwt', res.token);
           setHeaderEmail(email);
           setLoggedIn(true);
-          navigate("/");
+          navigate('/');
         }
       })
       .catch((err) => {
@@ -156,21 +151,21 @@ function App() {
   }
 
   function handleUserExit() {
-    localStorage.removeItem("jwt");
-    setHeaderEmail("");
+    localStorage.removeItem('jwt');
+    setHeaderEmail('');
     setLoggedIn(false);
-    navigate("/signin");
+    navigate('/signin');
   }
 
   useEffect(() => {
-    const jwt = localStorage.getItem("jwt");
+    const jwt = localStorage.getItem('jwt');
     if (jwt) {
       authApi
         .tokenCheck(jwt)
         .then((res) => {
           if (res) {
             setLoggedIn(true);
-            navigate("/");
+            navigate('/');
             setHeaderEmail(res.data.email);
           }
         })
@@ -214,15 +209,9 @@ function App() {
               }
             />
 
-            <Route
-              path="/signup"
-              element={<Register onRegister={handleUserRegistration} />}
-            />
+            <Route path="/signup" element={<Register onRegister={handleUserRegistration} />} />
 
-            <Route
-              path="/signin"
-              element={<Login onLogin={handleUserAuthorization} />}
-            />
+            <Route path="/signin" element={<Login onLogin={handleUserAuthorization} />} />
 
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
@@ -231,20 +220,17 @@ function App() {
           <EditProfilePopup
             isOpen={isEditProfilePopupOpen}
             onClose={closeAllPopups}
-            onUpdateUser={handleUpdateUser}
-          ></EditProfilePopup>
+            onUpdateUser={handleUpdateUser}></EditProfilePopup>
 
           <EditAvatarPopup
             isOpen={isEditAvatarPopupOpen}
             onClose={closeAllPopups}
-            onUpdateAvatar={handleUpdateAvatar}
-          ></EditAvatarPopup>
+            onUpdateAvatar={handleUpdateAvatar}></EditAvatarPopup>
 
           <AddPlacePopup
             isOpen={isAddPlacePopupOpen}
             onClose={closeAllPopups}
-            onAddCard={handleAddCard}
-          ></AddPlacePopup>
+            onAddCard={handleAddCard}></AddPlacePopup>
 
           <ImagePopup card={selectedCard} onClose={closeAllPopups}></ImagePopup>
 
